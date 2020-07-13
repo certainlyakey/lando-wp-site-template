@@ -1,0 +1,25 @@
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+.DS_Store
+
+# ignore environment data
+.env
+
+# ignore some accidental stuff that might make it into the repo
+node_modules
+/backups
+
+# ignore editor configs
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# ignore Wordpress core
+/wp
+
+# ignore Wordress content (exceptions below)
+/wp-content
+
+# Exceptions
+# !/wp-content/themes/my-theme

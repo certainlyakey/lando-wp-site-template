@@ -1,0 +1,30 @@
+name: lando-wp-site-template
+recipe: wordpress
+config:
+  webroot: .
+  via: nginx
+  xdebug: true
+services:
+  appserver: # php docker
+    build:
+      - composer install
+      - rm -rf $LANDO_MOUNT/wp/wp-content # we don't need the default wp-content installed with the core
+  database:
+    portforward: 32841 # always use the same port for convenience when connecting externally (eg. with Sequel Ace)
+  # node: # custom name of an additional Docker container
+  #   type: node
+  #   build: # runs when we start
+  #     - npm install
+  #     - gulp
+  #   globals:
+  #     gulp-cli: latest
+tooling: # commands available from outside (lando command)
+  # npm:
+  #   service: node
+  # gulp:
+  #   service: node
+  install:
+    service: appserver
+    cmd: 'wp core install --url=http://$LANDO_APP_NAME.$LANDO_DOMAIN --title=Lando --admin_user=admin --admin_password=password --admin_email=$ADMIN_EMAIL && wp plugin activate --all && wp theme install twentytwenty --activate'
+env_file:
+  - .env
