@@ -1,30 +1,55 @@
 name: lando-wp-site-template
 recipe: wordpress
+excludes: # these folders will not be synched to host, improving performance
+  - wp-content/themes/lando-wp-site-theme/node_modules
+  - wp-content/themes/lando-wp-site-theme/vendor
+  - wp-content/vendor
+  # - wp-content/uploads
+  # - wp-content/plugins
 config:
   webroot: .
   via: nginx
   xdebug: true
 services:
   appserver: # php docker
-    build:
+    composer_version: 2.2.18
+    run:
       - composer install
-      - rm -rf $LANDO_MOUNT/wp/wp-content # we don't need the default wp-content installed with the core
-  database:
-    portforward: 32841 # always use the same port for convenience when connecting externally (eg. with Sequel Ace)
-  # node: # custom name of an additional Docker container
-  #   type: node
-  #   build: # runs when we start
-  #     - npm install
-  #     - gulp
-  #   globals:
-  #     gulp-cli: latest
-tooling: # commands available from outside (lando command)
-  # npm:
-  #   service: node
-  # gulp:
-  #   service: node
-  install:
+      - rm -rf $LANDO_MOUNT/wp/wp-content # wp-content is in another 🏰
+      # - cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && composer install
+  database: 
+    build:
+      - chmod +x $LANDO_MOUNT/sh-scripts/import-db-on-start.sh && $LANDO_MOUNT/sh-scripts/import-db-on-start.sh
+    portforward: 32862 # always use the same port for convenience when connecting externally (eg. with Sequel Ace)
+  node: # custom name of an additional Docker container
+    type: node:16
+    overrides:
+      ports: [3334:3334]
+    build_as_root:
+      # - echo 'Installing php to the NodeJS container for php linting...' # we need this for theme php linting
+      # - apt-get update -y && apt-get install -y php7.3 php7.3-xml
+    run:
+      # - cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm install && npm run build
+    # globals:
+    #   gulp-cli: latest
+tooling: # commands available from outside (lando <command>)
+  npm:
+    service: node
+    cmd: npm
+    dir: /app/wp-content/themes/lando-wp-site-theme # must be an absolute path, can't use a $LANDO_ like constant here
+  watch:
+    service: node
+    cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run dev
+  wpinstall:
     service: appserver
-    cmd: 'wp core install --url=http://$LANDO_APP_NAME.$LANDO_DOMAIN --title=Lando --admin_user=admin --admin_password=password --admin_email=$ADMIN_EMAIL && wp plugin activate --all && wp theme install twentytwenty --activate'
-env_file:
+    cmd: 'wp core install --url=http://$LANDO_APP_NAME.$LANDO_DOMAIN --title=WPTemplate --admin_user=admin --admin_password=password --admin_email=admin@localhost.test && wp plugin activate --all && wp theme install twentytwentyone --activate'
+events:
+  # @todo. Will produce a warning when destroying the app after it has been stopped (still produces a backup when stopping. As a solution, destroy before stopping or stop, then destroy)
+  pre-stop:
+    - database: /helpers/sql-export.sh $LANDO_MOUNT/sql-dumps/${MYSQL_DATABASE}.`date +"%Y-%m-%d-%s"`.sql
+env_file: # env variables can only be used inside Docker, not inside this .lando.yml file
   - .env
+proxy:
+  node:
+    # 3000 is an internal port
+    - bs.lando-wp-site-template.lndo.site:3000
