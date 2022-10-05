@@ -21,7 +21,6 @@ if ( $lando_json = $_ENV['LANDO_INFO'] ) {
     define( 'WP_CONTENT_URL', $lando_url . '/wp-content' );
 
     // Autoload composer dependencies
-    // Timber must still be autoloaded in a theme itself
     require_once( __DIR__ . '/wp-content/vendor/autoload.php' );
 
     // Load environment variables from .env file

@@ -1,12 +1,11 @@
 {
   "name": "certainlyakey/lando-wp-site-template",
-  "description": "A Wordpress theme",
+  "description": "A Wordpress project template",
   "type": "project",
   "require": {
     "johnpbloch/wordpress-core": "6.0.2",
     "johnpbloch/wordpress-core-installer": "2.0.*",
     "vlucas/phpdotenv": "^5.0",
-    "timber/timber": "2.0.0-beta.1",
     "junaidbhura/advanced-custom-fields-pro": "*"
   },
   "repositories": [
@@ -39,8 +38,7 @@
     }
   },
   "require-dev": {
-    "wpackagist-plugin/debug-bar": "*",
-    "wpackagist-plugin/debug-bar-timber": "*"
+    "wpackagist-plugin/debug-bar": "*"
   },
   "extra": {
     "wordpress-install-dir": "wp"

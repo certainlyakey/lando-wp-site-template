@@ -1,6 +1,6 @@
 # Lando Wordpress site template
 
-A no-frills boilerplate Timber-based Wordpress project template for theme development using [Lando](https://lando.dev) v3.x.
+A no-frills Wordpress project template for theme development using [Lando](https://lando.dev) v3.x.
 
 You can add any theme to it.
 
@@ -37,15 +37,3 @@ You should also add an `index.php` to the parent folder with an updated path to 
 ## Connecting to MySQL externally
 
 Use port `32841` to connect to the database externally (eg. with [Sequel Ace](https://github.com/Sequel-Ace/Sequel-Ace)).
-
-## Miscellaneous
-
-Keep in mind that you must include Timber in your theme in order for it to work: 
-
-```
-$composer_autoload = __DIR__ . '/../../vendor/autoload.php';
-if ( file_exists( $composer_autoload ) ) {
-	require_once $composer_autoload;
-	$timber = new Timber\Timber();
-}
-```
