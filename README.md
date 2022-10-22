@@ -12,9 +12,9 @@ It's meant to be used with [ACF Pro](https://www.advancedcustomfields.com/), so 
 2. Clone this repo and `cd` to the repo folder
 3. Create an `.env` file and add your ACF Pro key here as `ACF_PRO_KEY`
 4. Run `lando start`
-5. Once finished, run `lando wpinstall` — this will perform an automated install of Wordpress, activate all plugins and install a default theme (twentytwenty). 
+5. Once finished, either continue with configuring the WP install manually by opening the site URL displayed in CLI or run `lando wpinstall` — this will perform an automated install of Wordpress, activate all plugins and install a default theme (twentytwentytwo).
 
-Next add your own theme in the mix. After installing it to the `themes` folder, replace lando-wp-site-theme with your theme name in all files across this repo (`.gitignore`, `.lando.yml`). 
+Next add your own theme in the mix. After installing it to the `themes` folder, replace lando-wp-site-theme with your theme name in all files across this repo (`.gitignore`, `.lando.yml`).
 
 ## Installation info and default credentials
 
@@ -24,7 +24,7 @@ Default credentials are the same as in the original [Lando Wordpress recipe](htt
 
 ## Installation on server
 
-Add a `wp-config.php` file to a parent folder of the installation and define database connection constants, salts, table prefix there. 
+Add a `wp-config.php` file to a parent folder of the installation and define database connection constants, salts, table prefix there.
 
 Also add a `WP_CONTENT_DIR` constant to the `wp-config.php` file, pointing to the `/wp-content` folder (the path must be absolute), and `WP_CONTENT_URL` with an absolute URL (eg. `https://example.com/wp-content`).
 

@@ -21,7 +21,7 @@ if ( $lando_json = $_ENV['LANDO_INFO'] ) {
     define( 'WP_CONTENT_URL', $lando_url . '/wp-content' );
 
     // Autoload composer dependencies
-    require_once( __DIR__ . '/wp-content/vendor/autoload.php' );
+    require_once __DIR__ . '/wp-content/vendor/autoload.php';
 
     // Load environment variables from .env file
     ( Dotenv\Dotenv::createImmutable( __DIR__ ) )->load();

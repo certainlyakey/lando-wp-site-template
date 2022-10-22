@@ -17,7 +17,7 @@ services:
       - composer install
       - rm -rf $LANDO_MOUNT/wp/wp-content # wp-content is in another 🏰
       # - cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && composer install
-  database: 
+  database:
     build:
       - chmod +x $LANDO_MOUNT/sh-scripts/import-db-on-start.sh && $LANDO_MOUNT/sh-scripts/import-db-on-start.sh
     portforward: 32862 # always use the same port for convenience when connecting externally (eg. with Sequel Ace)
@@ -42,7 +42,7 @@ tooling: # commands available from outside (lando <command>)
     cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run dev
   wpinstall:
     service: appserver
-    cmd: 'wp core install --url=http://$LANDO_APP_NAME.$LANDO_DOMAIN --title=WPTemplate --admin_user=admin --admin_password=password --admin_email=admin@localhost.test && wp plugin activate --all && wp theme install twentytwentyone --activate'
+    cmd: 'wp core install --url=http://$LANDO_APP_NAME.$LANDO_DOMAIN --title=WPTemplate --admin_user=admin --admin_password=password --admin_email=admin@localhost.test && wp plugin activate --all && wp theme install twentytwentytwo --activate'
 events:
   # @todo. Will produce a warning when destroying the app after it has been stopped (still produces a backup when stopping. As a solution, destroy before stopping or stop, then destroy)
   pre-stop:
