@@ -30,8 +30,6 @@ services:
       # - apt-get update -y && apt-get install -y php7.3 php7.3-xml
     run:
       # - cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm install && npm run build
-    # globals:
-    #   gulp-cli: latest
 tooling: # commands available from outside (lando <command>)
   npm:
     service: node
@@ -39,7 +37,7 @@ tooling: # commands available from outside (lando <command>)
     dir: /app/wp-content/themes/lando-wp-site-theme # must be an absolute path, can't use a $LANDO_ like constant here
   watch:
     service: node
-    cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run dev
+    cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run start
   wpinstall:
     service: appserver
     cmd: 'wp core install --url=http://$LANDO_APP_NAME.$LANDO_DOMAIN --title=WPTemplate --admin_user=admin --admin_password=password --admin_email=admin@localhost.test && wp plugin activate --all && wp theme install twentytwentytwo --activate'
