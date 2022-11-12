@@ -36,4 +36,4 @@ You should also add an `index.php` to the parent folder with an updated path to 
 
 ## Connecting to MySQL externally
 
-Use port `32841` to connect to the database externally (eg. with [Sequel Ace](https://github.com/Sequel-Ace/Sequel-Ace)).
+Use port `32862` to connect to the database externally (eg. with [Sequel Ace](https://github.com/Sequel-Ace/Sequel-Ace)).
