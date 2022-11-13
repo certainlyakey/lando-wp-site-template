@@ -2,7 +2,7 @@ name: lando-wp-site-template
 recipe: wordpress
 excludes: # these folders will not be synched to host, improving performance
   - wp-content/themes/lando-wp-site-theme/node_modules
-  - wp-content/themes/lando-wp-site-theme/vendor
+  # - wp-content/themes/lando-wp-site-theme/vendor
   - wp-content/vendor
   # - wp-content/uploads
   # - wp-content/plugins
