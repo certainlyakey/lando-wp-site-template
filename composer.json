@@ -21,7 +21,7 @@
         "type": "wordpress-plugin",
         "dist": {
           "type": "zip",
-          "url": "https://www.advancedcustomfields.com"
+          "url": "https://www.advancedcustomfields.com/"
         },
         "require": {
             "junaidbhura/composer-wp-pro-plugins": "*"
