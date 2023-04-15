@@ -35,5 +35,9 @@ node_modules
 /wp-content/plugins/*
 /wp-content/themes/*
 
+# ignore development softlinks
+/assets
+!/assets/
+
 # Exceptions
 # !/wp-content/themes/lando-wp-site-theme
