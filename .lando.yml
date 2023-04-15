@@ -38,6 +38,9 @@ tooling: # commands available from outside (lando <command>)
   watch:
     service: node
     cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run start
+  build:
+    service: node
+    cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run build
   regenerate:
     service: appserver
     cmd: wp media regenerate --yes
