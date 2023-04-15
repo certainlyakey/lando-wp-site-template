@@ -26,8 +26,8 @@ services:
     overrides:
       ports: [3334:3334]
     build_as_root:
-      # - echo 'Installing php to the NodeJS container for php linting...' # we need this for theme php linting
-      # - apt-get update -y && apt-get install -y php7.3 php7.3-xml
+      ## - echo 'Installing php to the NodeJS container for php linting...' # we need this for theme php linting
+      ## - apt-get update -y && apt-get install -y php7.3 php7.3-xml
     run:
       # - cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm install && npm run build
 tooling: # commands available from outside (lando <command>)
@@ -45,9 +45,12 @@ tooling: # commands available from outside (lando <command>)
     service: appserver
     cmd: 'wp core install --url=http://$LANDO_APP_NAME.$LANDO_DOMAIN --title=WPTemplate --admin_user=admin --admin_password=password --admin_email=admin@localhost.test && wp plugin activate --all && wp theme install twentytwentytwo --activate'
 events:
+  pre-start:
+    - node: ln -s $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme/public/assets $LANDO_MOUNT/assets
   # @todo. Will produce a warning when destroying the app after it has been stopped (still produces a backup when stopping. As a solution, destroy before stopping or stop, then destroy)
   pre-stop:
     - database: /helpers/sql-export.sh $LANDO_MOUNT/sql-dumps/${MYSQL_DATABASE}.`date +"%Y-%m-%d-%s"`.sql
+    - node: rm -rf $LANDO_MOUNT/assets
 env_file: # env variables can only be used inside Docker, not inside this .lando.yml file
   - .env
 proxy:
