@@ -58,4 +58,4 @@ env_file: # env variables can only be used inside Docker, not inside this .lando
   - .env
 proxy:
   node:
-    - vite.lando-wp-site-theme.lndo.site:3000
+    - vite.lando-wp-site-template.lndo.site:3000
