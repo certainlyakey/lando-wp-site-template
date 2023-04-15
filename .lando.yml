@@ -38,6 +38,9 @@ tooling: # commands available from outside (lando <command>)
   watch:
     service: node
     cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run start
+  regenerate:
+    service: appserver
+    cmd: wp media regenerate --yes
   wpinstall:
     service: appserver
     cmd: 'wp core install --url=http://$LANDO_APP_NAME.$LANDO_DOMAIN --title=WPTemplate --admin_user=admin --admin_password=password --admin_email=admin@localhost.test && wp plugin activate --all && wp theme install twentytwentytwo --activate'
