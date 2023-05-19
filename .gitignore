@@ -39,5 +39,8 @@ node_modules
 /assets
 !/assets/
 
+# ignore an HMR marker file necessary for PHP to understand if Vite is watching
+/.vite-hmr
+
 # Exceptions
 # !/wp-content/themes/lando-wp-site-theme

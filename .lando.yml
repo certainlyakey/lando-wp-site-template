@@ -36,8 +36,13 @@ tooling: # commands available from outside (lando <command>)
     cmd: npm
     dir: /app/wp-content/themes/lando-wp-site-theme # must be an absolute path, can't use a $LANDO_ like constant here
   watch:
+    description: Serve theme in a watch mode using Vite. While serving, we add a file marker communicating to PHP that HMR is ongoing. If the marker file does not exist, then Vite JS entry point script is not loaded to PHP and instead regular production assets are loaded
     service: node
-    cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run start
+    cmd: |
+      touch $LANDO_MOUNT/.vite-hmr && echo 'Adding .vite-hmr, HMR is on'
+      trap 'rm -f $LANDO_MOUNT/.vite-hmr && echo "\nDeleting .vite-hmr, HMR is off"' INT
+      npm run start
+    dir: /app/wp-content/themes/lando-wp-site-theme
   build:
     service: node
     cmd: cd $LANDO_MOUNT/wp-content/themes/lando-wp-site-theme && npm run build
